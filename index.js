@@ -13,31 +13,52 @@ app.use( cors({
 app.post("/sl",(req,res)=>{
     const body = req.body;
     nstore.findOne({brand:body.brand,product:body.product,unit:body.unit,price:body.price},(err,example)=>{
-    	if(example)
-    	{
-    		res.write("duplicate")
-    		res.end();
-    	}
-    	else
-    	{
-    		let val = new nstore({      // fitting request to menu schema
-	        brand:body.brand,
-	        product:body.product,
-	        price:body.price,
-	        unit:body.unit
-	    	});
-	    	val.save().then(doc=>{   // saving new item to  mongoose
-	        res.write("sucess");
-	        res.end();
-	    }) 
-    	}
+        if(example)
+        {
+            res.write("duplicate")
+            res.end();
+        }
+        else
+        {
+            let val = new nstore({      // fitting request to menu schema
+            brand:body.brand,
+            product:body.product,
+            price:body.price,
+            unit:body.unit
+            });
+            val.save().then(doc=>{   // saving new item to  mongoose
+            res.write("sucess");
+            res.end();
+        }) 
+        }
+    })  // copying request body
+});
+app.post("/cl",(req,res)=>{
+    const body = req.body;
+    nstore.findOne({brand:body.brand,product:body.product,unit:body.unit,price:body.price},(err,example)=>{
+        if(example)
+        {
+            res.send(example)
+            res.end();
+        }
+        else
+        {
+            let val = new nstore({      // fitting request to menu schema
+            brand:"",
+            product:"",
+            price:"",
+            unit:""
+            });
+            res.send(val);
+            res.end();
+        }
     })  // copying request body
 });
 app.post("/dl",(req,res)=>{
     const body = req.body;
     d=nstore.find({brand:body.brand,product:body.product,unit:body.unit,price:body.price}).remove().exec(); 
 });
-app.get("/gl",(req,res)=>{
+ app.get("/gl",(req,res)=>{
     nstore.find({},{__v:0,_id:0},(err,val)=>{ //request all data from menu collection
         res.send(val)  
     })
