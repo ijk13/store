@@ -35,7 +35,7 @@ app.post("/sl",(req,res)=>{
 });
 app.post("/cl",(req,res)=>{
     const body = req.body;
-    nstore.findOne({brand:body.brand,product:body.product,unit:body.unit,price:body.price},(err,example)=>{
+    nstore.findOne({brand:body.brand,product:body.product,unit:body.unit},(err,example)=>{
         if(example)
         {
             res.send(example)
@@ -47,7 +47,8 @@ app.post("/cl",(req,res)=>{
             brand:"",
             product:"",
             price:"",
-            unit:""
+            unit:"",
+            
             });
             res.send(val);
             res.end();
