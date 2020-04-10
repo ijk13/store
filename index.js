@@ -59,7 +59,7 @@ app.post("/cl",(req,res)=>{
 app.post("/dl",(req,res)=>{
     const body = req.body;
     const d=nstore.findOne({brand:body.brand,product:body.product,unit:body.unit,price:body.price});
-    d.remove().exec();
+    nstore.findOne({brand:body.brand,product:body.product,unit:body.unit,price:body.price}).remove().exec();
     res.send(d);
 });
  app.get("/gl",(req,res)=>{
