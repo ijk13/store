@@ -58,7 +58,9 @@ app.post("/cl",(req,res)=>{
 });
 app.post("/dl",(req,res)=>{
     const body = req.body;
-    d=nstore.find({brand:body.brand,product:body.product,unit:body.unit,price:body.price}).remove().exec(); 
+    const d=nstore.findOne({brand:body.brand,product:body.product,unit:body.unit,price:body.price});
+    d.remove().exec();
+    res.send(d);
 });
  app.get("/gl",(req,res)=>{
     nstore.find({},{__v:0,_id:0},(err,val)=>{ //request all data from menu collection
