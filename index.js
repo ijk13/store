@@ -49,7 +49,7 @@ app.post("/cl",(req,res)=>{
             product:"",
             price:"",
             unit:"",
-            img=""
+            img:""
             });
             res.send(val);
             res.end();
