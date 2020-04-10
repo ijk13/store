@@ -58,9 +58,26 @@ app.post("/cl",(req,res)=>{
 });
 app.post("/dl",(req,res)=>{
     const body = req.body;
-    const d=nstore.findOne({brand:body.brand,product:body.product,unit:body.unit,price:body.price});
-    nstore.findOne({brand:body.brand,product:body.product,unit:body.unit,price:body.price}).remove().exec();
-    res.send(d);
+    nstore.findOne({brand:body.brand,product:body.product,unit:body.unit},(err,example)=>{
+        if(example)
+        {
+            nstore.findOne({brand:body.brand,product:body.product,unit:body.unit}).remove().exec();
+            res.send(example)
+            res.end();
+        }
+        else
+        {
+            let val = new nstore({      // fitting request to menu schema
+            brand:"",
+            product:"",
+            price:"",
+            unit:"",
+            img:""
+            });
+            res.send(val);
+            res.end();
+        }
+    })  
 });
  app.get("/gl",(req,res)=>{
     nstore.find({},{__v:0,_id:0},(err,val)=>{ //request all data from menu collection
