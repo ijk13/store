@@ -24,7 +24,8 @@ app.post("/sl",(req,res)=>{
             brand:body.brand,
             product:body.product,
             price:body.price,
-            unit:body.unit
+            unit:body.unit,
+            img=body.img
             });
             val.save().then(doc=>{   // saving new item to  mongoose
             res.write("sucess");
